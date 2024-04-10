@@ -1,0 +1,22 @@
+<p>select-field-configurator works!</p>
+<form
+  [formGroup]="form"
+  (ngSubmit)="configured()"
+>
+  <ng-container formArrayName="options">
+    <input
+      type="text"
+      placeholder="Option..."
+      *ngFor="let option of options"
+      [formControl]="option"
+    >
+    <button
+      type="button"
+      (click)="addAnotherOption()"
+    >Another option</button>
+    <button
+      type="submit"
+      [disabled]="!form.valid"
+    >Add field</button>
+  </ng-container>
+</form>

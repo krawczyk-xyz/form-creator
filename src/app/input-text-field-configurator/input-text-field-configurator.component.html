@@ -1,0 +1,22 @@
+<p>input-text-field-configurator works!</p>
+<form [formGroup]="form" (ngSubmit)="configured()">
+  <input
+    type="text"
+    placeholder="Label..."
+    formControlName="label"
+  >
+  <input
+    type="text"
+    placeholder="Placeholder..."
+    formControlName="placeholder"
+  >
+  <input
+    type="number"
+    placeholder="Max Length..."
+    formControlName="maxLength"
+  >
+  <button
+    type="submit"
+    [disabled]="!form.valid"
+  >Add field</button>
+</form>

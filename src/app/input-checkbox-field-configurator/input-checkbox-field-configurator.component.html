@@ -1,0 +1,12 @@
+<p>input-checkbox-field-configurator works!</p>
+<form [formGroup]="form" (ngSubmit)="configured()">
+  <input
+    type="text"
+    placeholder="Label..."
+    formControlName="label"
+  >
+  <button
+    type="submit"
+    [disabled]="!form.valid"
+  >Add field</button>
+</form>
