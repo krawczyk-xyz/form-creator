@@ -1,29 +1,7 @@
 <p>Your form:</p>
 <app-config-based-form
-  *ngIf="fieldsConfig$ | async as fieldsConfig"
+  *ngIf="formConfig$ | async as fieldsConfig"
   [formConfig]="fieldsConfig"
 ></app-config-based-form>
 
-<select [(ngModel)]="selectedType">
-  <option
-    *ngFor="let type of fieldTypes"
-    [value]="type.type"
-  >{{ type.label }}</option>
-</select>
-@switch (selectedType) {
-  @case ('input-text') {
-    <app-input-text-field-configurator
-      (fieldConfigured)="fieldConfigured($event)"
-    ></app-input-text-field-configurator>
-  }
-  @case ('input-checkbox') {
-    <app-input-checkbox-field-configurator
-      (fieldConfigured)="fieldConfigured($event)"
-    ></app-input-checkbox-field-configurator>
-  }
-  @case ('select') {
-    <app-select-field-configurator
-      (fieldConfigured)="fieldConfigured($event)"
-    ></app-select-field-configurator>
-  }
-}
+<app-field-configurator></app-field-configurator>
