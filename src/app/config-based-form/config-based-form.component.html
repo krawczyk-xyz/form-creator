@@ -1,2 +1,37 @@
 <p>config-based-form works!</p>
-<pre>formConfig: {{formConfig | json}}</pre>
+<ng-container *ngFor="let field of formConfig">
+  @switch (field.type) {
+    @case ('input-text') {
+      <div>
+        <label>
+          {{ field.label }}
+          <input
+            type="text"
+            [placeholder]="field.placeholder"
+          >
+        </label>
+      </div>
+    }
+    @case ('input-checkbox') {
+      <div>
+        <label>
+          {{ field.label }}
+          <input
+            type="checkbox"
+          >
+        </label>
+      </div>
+    }
+    @case ('select') {
+      <div>
+        <select>
+          <option
+            *ngFor="let option of field.options"
+            [value]="option"
+          >{{ option }}
+          </option>
+        </select>
+      </div>
+    }
+  }
+</ng-container>
