@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextFieldConfig } from '../input-text-field-configurator/input-text-field-configurator.component';
 import { InputCheckboxFieldConfig } from '../input-checkbox-field-configurator/input-checkbox-field-configurator.component';
@@ -16,4 +16,15 @@ export class ConfigBasedFormComponent {
     | InputCheckboxFieldConfig
     | SelectFieldConfig
   )[] = [];
+
+  @Output() deleteField = new EventEmitter<number>();
+
+  editField(fieldIdx: number) {
+    console.log(`edit field with idx: ${fieldIdx}`);
+  }
+
+  deleteFieldByIdx(fieldIdx: number) {
+    console.log(`delete field with idx: ${fieldIdx}`);
+    this.deleteField.emit(fieldIdx);
+  }
 }

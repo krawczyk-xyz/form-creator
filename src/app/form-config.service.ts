@@ -18,4 +18,10 @@ export class FormConfigService {
   ) {
     this.configState$.next([...this.configState$.value, field]);
   }
+
+  deleteField(fieldIdx: number) {
+    this.configState$.next(
+      this.configState$.value.filter((_, idx) => idx !== fieldIdx)
+    );
+  }
 }

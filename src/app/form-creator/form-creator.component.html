@@ -2,6 +2,7 @@
 <app-config-based-form
   *ngIf="formConfig$ | async as fieldsConfig"
   [formConfig]="fieldsConfig"
+  (deleteField)="deleteField($event)"
 ></app-config-based-form>
 
 <app-field-configurator></app-field-configurator>

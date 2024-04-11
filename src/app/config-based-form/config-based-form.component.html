@@ -1,37 +1,33 @@
 <p>config-based-form works!</p>
-<ng-container *ngFor="let field of formConfig">
+<div *ngFor="let field of formConfig; let fieldIdx = index">
   @switch (field.type) {
     @case ('input-text') {
-      <div>
-        <label>
-          {{ field.label }}
-          <input
-            type="text"
-            [placeholder]="field.placeholder"
-          >
-        </label>
-      </div>
+      <label>
+        {{ field.label }}
+        <input
+          type="text"
+          [placeholder]="field.placeholder"
+        >
+      </label>
     }
     @case ('input-checkbox') {
-      <div>
-        <label>
-          {{ field.label }}
-          <input
-            type="checkbox"
-          >
-        </label>
-      </div>
+      <label>
+        {{ field.label }}
+        <input
+          type="checkbox"
+        >
+      </label>
     }
     @case ('select') {
-      <div>
-        <select>
-          <option
-            *ngFor="let option of field.options"
-            [value]="option"
-          >{{ option }}
-          </option>
-        </select>
-      </div>
+      <select>
+        <option
+          *ngFor="let option of field.options"
+          [value]="option"
+        >{{ option }}
+        </option>
+      </select>
     }
   }
-</ng-container>
+  <button (click)="deleteFieldByIdx(fieldIdx)">Delete</button>
+  <button (click)="editField(fieldIdx)">Edit</button>
+</div>

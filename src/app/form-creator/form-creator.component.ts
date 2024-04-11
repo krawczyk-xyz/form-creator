@@ -11,5 +11,10 @@ import { FormConfigService } from '../form-config.service';
   templateUrl: './form-creator.component.html',
 })
 export class FormCreatorComponent {
-  public formConfig$ = inject(FormConfigService).config$;
+  private formConfigService = inject(FormConfigService);
+  public formConfig$ = this.formConfigService.config$;
+
+  deleteField(fieldIdx: number) {
+    this.formConfigService.deleteField(fieldIdx);
+  }
 }
