@@ -28,7 +28,7 @@ export class InputTextFieldConfiguratorComponent {
   public form = this.fb.group({
     label: ['', Validators.required],
     placeholder: ['', Validators.required],
-    maxLength: -1,
+    maxLength: '',
   });
 
   constructor(private fb: FormBuilder) {}
