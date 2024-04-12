@@ -1,33 +1,41 @@
-<p>config-based-form works!</p>
-<div *ngFor="let field of formConfig; let fieldIdx = index">
-  @switch (field.type) {
-    @case ('input-text') {
-      <label>
-        {{ field.label }}
-        <input
-          type="text"
-          [placeholder]="field.placeholder"
-        >
-      </label>
-    }
-    @case ('input-checkbox') {
-      <label>
-        {{ field.label }}
-        <input
-          type="checkbox"
-        >
-      </label>
-    }
-    @case ('select') {
-      <select>
-        <option
-          *ngFor="let option of field.options"
-          [value]="option"
-        >{{ option }}
-        </option>
-      </select>
-    }
-  }
-  <button (click)="deleteFieldByIdx(fieldIdx)">Delete</button>
-  <button (click)="editFieldByIdx(fieldIdx)">Edit</button>
+<div class="bg-blue-200 p-2">
+  <span class="text-xs font-bold">config-based-form</span>
+  <div class="flex flex-col gap-2">
+    <div
+      class="flex gap-1"
+      *ngFor="let field of formConfig; let fieldIdx = index"
+    >
+      @switch (field.type) {
+        @case ('input-text') {
+          <label class="font-bold text-lg">
+            {{ field.label }}
+            <input
+              type="text"
+              [placeholder]="field.placeholder"
+            >
+          </label>
+        }
+        @case ('input-checkbox') {
+          <label class="font-bold text-lg">
+            {{ field.label }}
+            <input
+              class="aspect-square w-5"
+              type="checkbox"
+            >
+          </label>
+        }
+        @case ('select') {
+          <select class="font-bold text-lg">
+            <option
+              *ngFor="let option of field.options"
+              [value]="option"
+            >{{ option }}
+            </option>
+          </select>
+        }
+      }
+      <button class="btn btn-white" (click)="deleteFieldByIdx(fieldIdx)">Delete</button>
+      <button class="btn btn-white" (click)="editFieldByIdx(fieldIdx)">Edit</button>
+    </div>
+  </div>
 </div>

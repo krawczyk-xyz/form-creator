@@ -15,13 +15,15 @@ import {
   templateUrl: './form-creator.component.html',
 })
 export class FormCreatorComponent {
-  private fieldConfigurationService = inject(FieldConfigurationService);
-  public configurationState$ =
+  private readonly fieldConfigurationService = inject(
+    FieldConfigurationService
+  );
+  public readonly configurationState$ =
     this.fieldConfigurationService.configurationState$;
-  private formConfigService = inject(FormConfigService);
-  public formConfig$ = this.formConfigService.config$;
+  private readonly formConfigService = inject(FormConfigService);
+  public readonly formConfig$ = this.formConfigService.config$;
+  public readonly fieldConfiguratorStates = StateType;
 
-  fieldConfiguratorStates = StateType;
   deleteFieldClicked(fieldIdx: number) {
     this.formConfigService.deleteField(fieldIdx);
   }

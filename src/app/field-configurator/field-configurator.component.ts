@@ -39,8 +39,10 @@ type FieldType = InputTextType | InputCheckboxType | SelectType;
   templateUrl: './field-configurator.component.html',
 })
 export class FieldConfiguratorComponent {
-  private formConfigService = inject(FormConfigService);
-  private fieldConfigurationService = inject(FieldConfigurationService);
+  private readonly formConfigService = inject(FormConfigService);
+  private readonly fieldConfigurationService = inject(
+    FieldConfigurationService
+  );
 
   public readonly fieldTypes: { label: string; type: FieldType }[] = [
     {
@@ -67,14 +69,6 @@ export class FieldConfiguratorComponent {
   public readonly fieldType$ = this.selectFieldType$.pipe(
     mergeWith(this.fieldToEdit$.pipe(map((field) => field.type)))
   );
-
-  constructor() {
-    this.fieldToEdit$ = this.fieldConfigurationService.configurationState$.pipe(
-      filter((state) => state.type === StateType.Edit),
-      map((state) => (state as EditState).idx),
-      switchMap((idx) => this.formConfigService.fieldByIdx(idx))
-    );
-  }
 
   fieldConfigured(
     field: InputTextFieldConfig | InputCheckboxFieldConfig | SelectFieldConfig

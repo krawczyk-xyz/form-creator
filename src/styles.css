@@ -3,3 +3,12 @@
 @tailwind utilities;
 
 /* You can add global styles to this file, and also import other style files */
+.btn {
+    @apply font-semibold py-1 px-2 border border-gray-400 rounded shadow;
+}
+.btn-white {
+    @apply bg-white text-gray-800;
+}
+.btn-white:hover {
+    @apply bg-gray-100;
+}

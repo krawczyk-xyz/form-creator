@@ -1,30 +1,42 @@
-<p>field-configurator works!</p>
-<div>
-  <button
-    *ngFor="let type of fieldTypes"
-    type="button"
-    (click)="setFieldTypeTo(type.type)"
-  >{{type.label}}</button>
+<div class="bg-blue-200 p-2">
+  <div class="text-xs font-bold">field-configurator</div>
+  <div class="flex flex-col gap-2">
+    <div class="inline-flex">
+      <button
+        class="btn btn-white"
+        *ngFor="let type of fieldTypes"
+        type="button"
+        (click)="setFieldTypeTo(type.type)"
+      >{{ type.label }}
+      </button>
+    </div>
 
-  @switch (fieldType$ | async) {
-    @case ('input-text') {
-      <app-input-text-field-configurator
-        (fieldConfigured)="fieldConfigured($event)"
-      ></app-input-text-field-configurator>
+    @switch (fieldType$ | async) {
+      @case ('input-text') {
+        <app-input-text-field-configurator
+          (fieldConfigured)="fieldConfigured($event)"
+        ></app-input-text-field-configurator>
+      }
+      @case ('input-checkbox') {
+        <app-input-checkbox-field-configurator
+          (fieldConfigured)="fieldConfigured($event)"
+        ></app-input-checkbox-field-configurator>
+      }
+      @case ('select') {
+        <app-select-field-configurator
+          (fieldConfigured)="fieldConfigured($event)"
+        ></app-select-field-configurator>
+      }
     }
-    @case ('input-checkbox') {
-      <app-input-checkbox-field-configurator
-        (fieldConfigured)="fieldConfigured($event)"
-      ></app-input-checkbox-field-configurator>
-    }
-    @case ('select') {
-      <app-select-field-configurator
-        (fieldConfigured)="fieldConfigured($event)"
-      ></app-select-field-configurator>
-    }
-  }
+
+    <div class="inline-block">
+      <button
+        class="btn btn-white"
+        (click)="closeFieldConfigurator()"
+      >Close
+      </button>
+    </div>
+
+    <pre>fieldToEdit$: {{ fieldToEdit$ | async | json }}</pre>
+  </div>
 </div>
-<button (click)="closeFieldConfigurator()">Close</button>
-
-<pre>{{fieldType$ | async | json}}</pre>
-<pre>{{fieldToEdit$ | async | json}}</pre>
