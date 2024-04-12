@@ -15,27 +15,59 @@
       @case ('input-text') {
         <app-input-text-field-configurator
           (fieldConfigured)="fieldConfigured($event)"
-        ></app-input-text-field-configurator>
+        >
+          <div class="flex flex-col">
+            <span class="text-xs leading-none">ng-content</span>
+            <button
+              class="btn btn-white"
+              (click)="closeFieldConfigurator()"
+            >Close
+            </button>
+          </div>
+        </app-input-text-field-configurator>
       }
       @case ('input-checkbox') {
         <app-input-checkbox-field-configurator
           (fieldConfigured)="fieldConfigured($event)"
-        ></app-input-checkbox-field-configurator>
+        >
+          <div class="flex flex-col">
+            <span class="text-xs leading-none">ng-content</span>
+            <button
+              class="btn btn-white"
+              (click)="closeFieldConfigurator()"
+            >Close
+            </button>
+          </div>
+        </app-input-checkbox-field-configurator>
       }
       @case ('select') {
         <app-select-field-configurator
           (fieldConfigured)="fieldConfigured($event)"
-        ></app-select-field-configurator>
+        >
+          <div class="flex flex-col">
+            <span class="text-xs leading-none">ng-content</span>
+            <button
+              class="btn btn-white"
+              (click)="closeFieldConfigurator()"
+            >Close
+            </button>
+          </div>
+        </app-select-field-configurator>
+      }
+      @default {
+        <div class="flex flex-col">
+          <span class="text-lg font-bold">Pick the type of field you want to add.</span>
+          <div class="block">
+            <button
+              class="btn btn-white"
+              (click)="closeFieldConfigurator()"
+            >Close
+            </button>
+          </div>
+        </div>
       }
     }
 
-    <div class="inline-block">
-      <button
-        class="btn btn-white"
-        (click)="closeFieldConfigurator()"
-      >Close
-      </button>
-    </div>
 
     <pre>fieldToEdit$: {{ fieldToEdit$ | async | json }}</pre>
   </div>

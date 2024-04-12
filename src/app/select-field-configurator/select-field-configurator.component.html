@@ -23,7 +23,7 @@
         </button>
       </div>
     </div>
-    <div class="inline-block">
+    <div class="flex gap-2">
       <button
         class="btn btn-white"
         type="submit"
@@ -31,6 +31,9 @@
       >
         Add field
       </button>
+      <div class="p-1 bg-blue-200">
+        <ng-content></ng-content>
+      </div>
     </div>
   </form>
 </div>
