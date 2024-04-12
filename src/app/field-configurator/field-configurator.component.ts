@@ -17,6 +17,12 @@ import {
   SelectType,
 } from '../select-field-configurator/select-field-configurator.component';
 import { FormConfigService } from '../form-config.service';
+import {
+  EditState,
+  FieldConfigurationService,
+  StateType,
+} from '../field-configuration.service';
+import { BehaviorSubject, filter, map, mergeWith, switchMap } from 'rxjs';
 
 type FieldType = InputTextType | InputCheckboxType | SelectType;
 
@@ -34,6 +40,7 @@ type FieldType = InputTextType | InputCheckboxType | SelectType;
 })
 export class FieldConfiguratorComponent {
   private formConfigService = inject(FormConfigService);
+  private fieldConfigurationService = inject(FieldConfigurationService);
 
   public readonly fieldTypes: { label: string; type: FieldType }[] = [
     {
@@ -49,12 +56,39 @@ export class FieldConfiguratorComponent {
       type: 'select',
     },
   ];
-  public selectedType: FieldType | '' = '';
+
+  public readonly fieldToEdit$ =
+    this.fieldConfigurationService.configurationState$.pipe(
+      filter((state) => state.type === StateType.Edit),
+      map((state) => (state as EditState).idx),
+      switchMap((idx) => this.formConfigService.fieldByIdx(idx))
+    );
+  private readonly selectFieldType$ = new BehaviorSubject<FieldType | ''>('');
+  public readonly fieldType$ = this.selectFieldType$.pipe(
+    mergeWith(this.fieldToEdit$.pipe(map((field) => field.type)))
+  );
+
+  constructor() {
+    this.fieldToEdit$ = this.fieldConfigurationService.configurationState$.pipe(
+      filter((state) => state.type === StateType.Edit),
+      map((state) => (state as EditState).idx),
+      switchMap((idx) => this.formConfigService.fieldByIdx(idx))
+    );
+  }
 
   fieldConfigured(
     field: InputTextFieldConfig | InputCheckboxFieldConfig | SelectFieldConfig
   ) {
     this.formConfigService.addField(field);
-    this.selectedType = '';
+    this.fieldConfigurationService.hideConfiguration();
+    this.selectFieldType$.next('');
+  }
+
+  closeFieldConfigurator() {
+    this.fieldConfigurationService.hideConfiguration();
+  }
+
+  setFieldTypeTo(type: FieldType) {
+    this.selectFieldType$.next(type);
   }
 }

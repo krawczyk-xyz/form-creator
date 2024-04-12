@@ -1,24 +1,30 @@
 <p>field-configurator works!</p>
-<select [(ngModel)]="selectedType">
-  <option
+<div>
+  <button
     *ngFor="let type of fieldTypes"
-    [value]="type.type"
-  >{{ type.label }}</option>
-</select>
-@switch (selectedType) {
-  @case ('input-text') {
-    <app-input-text-field-configurator
-      (fieldConfigured)="fieldConfigured($event)"
-    ></app-input-text-field-configurator>
+    type="button"
+    (click)="setFieldTypeTo(type.type)"
+  >{{type.label}}</button>
+
+  @switch (fieldType$ | async) {
+    @case ('input-text') {
+      <app-input-text-field-configurator
+        (fieldConfigured)="fieldConfigured($event)"
+      ></app-input-text-field-configurator>
+    }
+    @case ('input-checkbox') {
+      <app-input-checkbox-field-configurator
+        (fieldConfigured)="fieldConfigured($event)"
+      ></app-input-checkbox-field-configurator>
+    }
+    @case ('select') {
+      <app-select-field-configurator
+        (fieldConfigured)="fieldConfigured($event)"
+      ></app-select-field-configurator>
+    }
   }
-  @case ('input-checkbox') {
-    <app-input-checkbox-field-configurator
-      (fieldConfigured)="fieldConfigured($event)"
-    ></app-input-checkbox-field-configurator>
-  }
-  @case ('select') {
-    <app-select-field-configurator
-      (fieldConfigured)="fieldConfigured($event)"
-    ></app-select-field-configurator>
-  }
-}
+</div>
+<button (click)="closeFieldConfigurator()">Close</button>
+
+<pre>{{fieldType$ | async | json}}</pre>
+<pre>{{fieldToEdit$ | async | json}}</pre>

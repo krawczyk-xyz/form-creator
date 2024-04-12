@@ -3,20 +3,25 @@
   [formGroup]="form"
   (ngSubmit)="configured()"
 >
-  <ng-container formArrayName="options">
-    <input
-      type="text"
-      placeholder="Option..."
-      *ngFor="let option of options"
-      [formControl]="option"
-    >
+  <div formArrayName="options">
+    <div *ngFor="let option of options">
+      <input
+        type="text"
+        placeholder="Option..."
+        [formControl]="option"
+      >
+    </div>
     <button
       type="button"
       (click)="addAnotherOption()"
-    >Another option</button>
-    <button
-      type="submit"
-      [disabled]="!form.valid"
-    >Add field</button>
-  </ng-container>
+    >
+      Another option
+    </button>
+  </div>
+  <button
+    type="submit"
+    [disabled]="!form.valid"
+  >
+    Add field
+  </button>
 </form>

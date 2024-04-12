@@ -18,13 +18,13 @@ export class ConfigBasedFormComponent {
   )[] = [];
 
   @Output() deleteField = new EventEmitter<number>();
+  @Output() editField = new EventEmitter<number>();
 
-  editField(fieldIdx: number) {
-    console.log(`edit field with idx: ${fieldIdx}`);
+  editFieldByIdx(fieldIdx: number) {
+    this.editField.emit(fieldIdx);
   }
 
   deleteFieldByIdx(fieldIdx: number) {
-    console.log(`delete field with idx: ${fieldIdx}`);
     this.deleteField.emit(fieldIdx);
   }
 }

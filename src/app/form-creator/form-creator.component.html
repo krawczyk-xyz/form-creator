@@ -1,8 +1,15 @@
-<p>Your form:</p>
+<p>form-creator works!</p>
 <app-config-based-form
   *ngIf="formConfig$ | async as fieldsConfig"
   [formConfig]="fieldsConfig"
-  (deleteField)="deleteField($event)"
+  (deleteField)="deleteFieldClicked($event)"
+  (editField)="editFieldClicked($event)"
 ></app-config-based-form>
 
-<app-field-configurator></app-field-configurator>
+<button (click)="addFieldClicked()">
+  Add field
+</button>
+<pre>{{ configurationState$ | async | json }}</pre>
+<ng-container *ngIf="(configurationState$ | async)?.type !== fieldConfiguratorStates.Hidden">
+  <app-field-configurator></app-field-configurator>
+</ng-container>
