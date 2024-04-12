@@ -5,6 +5,7 @@ import {
   FormControl,
   FormsModule,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 
@@ -23,7 +24,7 @@ export type SelectFieldConfig = {
 export class SelectFieldConfiguratorComponent {
   @Output() fieldConfigured = new EventEmitter<SelectFieldConfig>();
   public form = this.fb.group({
-    options: this.fb.array([], Validators.minLength(2)),
+    options: this.fb.array([], arrayMinLength(2)),
   });
 
   constructor(private fb: FormBuilder) {}
@@ -43,3 +44,13 @@ export class SelectFieldConfiguratorComponent {
     } as SelectFieldConfig);
   }
 }
+
+const arrayMinLength =
+  (min: number): ValidatorFn =>
+  (c) => {
+    if (c.value.length >= min) {
+      return null;
+    }
+
+    return { arrayMinLength: { valid: false } };
+  };
