@@ -24,7 +24,7 @@
 }
 
 .input-checkbox {
-    @apply appearance-none bg-white
+    @apply bg-white
 }
 
 .input-select {
